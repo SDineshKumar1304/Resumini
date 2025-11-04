@@ -2,11 +2,11 @@ import os
 import docx
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-
+from google.generativeai.types import tool
 class ResumeOptimizer:
     def __init__(self, llm):
         self.llm = llm
-
+    @tool
     def generate(self, target_role: str, candidate_name: str, resume_text: str = None):
         """
         Optimize the resume for a given target role and save it to Desktop as:
