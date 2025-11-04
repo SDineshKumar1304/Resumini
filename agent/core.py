@@ -44,17 +44,16 @@ class ResuminiAgent:
         sys.stdout.write("\n")
         sys.stdout.flush()
 
-    # 🧠 Resume Loader + Vector DB
+    # Resume Loader + Vector DB
     def load_resume(self, file_path):
         import platform, subprocess
 
-        console.print("\n📂 [cyan]Loading and embedding resume...[/cyan]")
+        console.print("\n [cyan]Loading and embedding resume...[/cyan]")
 
         if not os.path.exists(file_path):
             console.print(f"[red]❌ File not found:[/red] {file_path}")
             return
 
-        # ✅ Remember the loaded resume path for later use (Optimizer/Preview)
         self.loaded_resume_path = os.path.abspath(file_path)
 
         resume_name = os.path.splitext(os.path.basename(file_path))[0]
@@ -171,21 +170,17 @@ class ResuminiAgent:
         text = self.current_resume_text.lower()
         report = {}
 
-        # Keyword scoring
         keywords = ["python", "machine learning", "ai", "flask", "tensorflow", "sql", "data analysis"]
         found_keywords = [kw for kw in keywords if kw in text]
         report["keyword_score"] = len(found_keywords) / len(keywords) * 100
 
-        # Section completeness
         sections = ["education", "projects", "experience", "skills", "certifications"]
         found_sections = [s for s in sections if s in text]
         report["structure_score"] = len(found_sections) / len(sections) * 100
 
-        # Resume length scoring
         word_count = len(text.split())
         report["length_score"] = 100 if 400 <= word_count <= 900 else 60 if word_count < 400 else 70
 
-        # Weighted ATS score
         report["overall_score"] = round(
             (report["keyword_score"] * 0.4) +
             (report["structure_score"] * 0.3) +
@@ -1079,3 +1074,4 @@ class ResuminiAgent:
                     console.print(" ✔ Thinking... analyzing context...\n")
                     answer = self.rag.query(raw)
                     self.stream_text(answer)
+
