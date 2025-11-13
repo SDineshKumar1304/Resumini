@@ -1,7 +1,7 @@
 import os
-from google.generativeai.types import tool  # ✅ Gemini tool decorator
+# from google.generativeai.types import tool 
 
-@tool
+# @tool
 def extract_text(path: str) -> str:
     """
     Extract text content from a file (.pdf, .docx, or .txt).
@@ -74,3 +74,4 @@ def _extract_docx(path: str) -> str:
     except Exception as e:
         print(f"❌ DOCX extraction failed: {e}")
         return ""
+
