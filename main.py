@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import argparse
 import os
 import sys
@@ -35,7 +34,7 @@ def masked_input(prompt=""):
                 password += ch
                 sys.stdout.write("*")
                 sys.stdout.flush()
-    else:  # macOS / Linux
+    else:  
         import termios
         import tty
         fd = sys.stdin.fileno()
@@ -70,14 +69,13 @@ def setup_gemini():
 
     api_key = masked_input("🔑 Enter your Google Gemini API Key (press Enter to paste): ").strip()
     if not api_key:
-        print("❌ API key is required. Visit https://ai.google.dev to create one.")
+        print("❌ API key is required. Visit https://aistudio.google.com/api-keys to create one.")
         sys.exit(1)
 
     model_name = input("🧠 Enter Gemini model name (default: gemini-2.0-flash): ").strip()
     if not model_name:
         model_name = "gemini-2.0-flash"
 
-    # Configure Gemini
     try:
         print("\n⚙️  Validating your API key and initializing model...")
         genai.configure(api_key=api_key)
@@ -87,7 +85,7 @@ def setup_gemini():
         return api_key, model_name
     except Exception as e:
         print(f"❌ Failed to connect with Gemini API: {e}")
-        print("👉 Get your valid API key from: https://ai.google.dev/")
+        print("👉 Get your valid API key from: https://aistudio.google.com/api-keys")
         sys.exit(1)
 
 
@@ -96,14 +94,11 @@ def main():
     parser.add_argument("--path", type=str, help="Path to your resume file (PDF/DOCX)")
     args = parser.parse_args()
 
-    # 1️⃣ Setup Gemini interactively
     api_key, model_name = setup_gemini()
 
-    # 2️⃣ Pass API key + model to environment (for all submodules)
     os.environ["GEMINI_API_KEY"] = api_key
     os.environ["GEMINI_MODEL_NAME"] = model_name
 
-    # 3️⃣ Launch the agent
     agent = ResuminiAgent()
     print("🤖 Starting interactive chat...\n")
     time.sleep(0.5)
@@ -114,3 +109,4 @@ if __name__ == "__main__":
     show_banner()
     console.print("\n🤖 [bold magenta]Resumini is ready![/bold magenta] Type [yellow]'help'[/yellow] or [yellow]'exit'[/yellow].\n")
     main()
+
