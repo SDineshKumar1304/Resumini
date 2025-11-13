@@ -2,11 +2,11 @@ import os
 import docx
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from google.generativeai.types import tool
+# from google.generativeai.types import tool
 class ResumeOptimizer:
     def __init__(self, llm):
         self.llm = llm
-    @tool
+    # @tool
     def generate(self, target_role: str, candidate_name: str, resume_text: str = None):
         """
         Optimize the resume for a given target role and save it to Desktop as:
@@ -15,11 +15,9 @@ class ResumeOptimizer:
         if not resume_text:
             return "⚠️ No resume text found. Please load a resume first."
 
-        # ✅ Create clean role + name for filename
         safe_role = "_".join(target_role.split())
         safe_name = "".join(c for c in candidate_name if c.isalnum())
 
-        # ✅ File path on Desktop
         desktop = os.path.join(os.path.expanduser("~"), "Desktop")
         os.makedirs(desktop, exist_ok=True)
         filename = f"optimized_resume_{safe_role}_{safe_name}.docx"
@@ -57,7 +55,6 @@ class ResumeOptimizer:
         if not optimized_text or "Error" in optimized_text:
             return "⚠️ Optimization failed. Please check your API key or LLM response."
 
-        # ✅ Create and format Word document
         try:
             doc = docx.Document()
             title = doc.add_heading(f"Optimized Resume for {target_role}", level=0)
@@ -79,3 +76,4 @@ class ResumeOptimizer:
 
         print(f"✅ Resume optimized and saved to Desktop as: {filename}")
         return out_path
+
