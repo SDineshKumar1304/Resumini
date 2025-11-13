@@ -1,11 +1,11 @@
 from agent.prompts import ATS_SCORING_PROMPT
-from google.generativeai.types import tool  
+# from google.generativeai.types import tool  
 
 class ATSAnalyzer:
     def __init__(self, llm):
         self.llm = llm
 
-    @tool
+    # @tool
     def analyze(self, resume_text: str, role_description: str):
         """
         Analyze resume vs job role using AI for ATS compatibility.
@@ -45,3 +45,4 @@ class ATSAnalyzer:
                 "score": 0,
                 "feedback": f"Error in AI analysis: {e}"
             }
+
