@@ -29,14 +29,13 @@ class GeminiLLM:
 
             genai.configure(api_key=cfg["GEMINI_API_KEY"])
 
-            # ✅ Attach your project tools here
             self.model = genai.GenerativeModel(
                 model_name="gemini-2.5-flash",
                 tools=[
-                    ATSAnalyzer,        
-                    extract_text,       
-                    LinkedInSearch,     
-                    ResumeOptimizer     
+                    ResumeOptimizer(self).generate,
+                    ATSAnalyzer(self).analyze,
+                    extract_text,
+                    LinkedInSearch().search_jobs,
                 ]
             )
 
@@ -70,7 +69,7 @@ class GeminiLLM:
                         full_text += ch
 
             print()  
-            return full_text.strip()
+            return ""
 
         except Exception as e:
             print(f"\n⚠️ LLM call failed: {e}")
@@ -79,3 +78,4 @@ class GeminiLLM:
     def stream(self, prompt: str, max_tokens: int = None):
         """Alias for generate(), to support .stream() calls from core.py"""
         return self.generate(prompt, max_tokens)
+
