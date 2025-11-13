@@ -1,11 +1,8 @@
-# WARNING: Automated scraping of LinkedIn may violate its Terms of Service.
-# Use responsibly. Prefer authorized APIs where possible.
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import WebDriverException
-from google.generativeai.types import tool  
+# from google.generativeai.types import tool  
 import time
 import re
 
@@ -63,7 +60,7 @@ class LinkedInSearch:
         for _ in range(attempts):
             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(pause)
-    @tool
+    # @tool
     def search_jobs(self, query: str = "Data Scientist Bangalore", location: str = None, max_results: int = 10):
         """
         Search LinkedIn jobs and return structured data.
@@ -175,3 +172,4 @@ class LinkedInSearch:
                     self.driver.quit()
             except Exception:
                 pass
+
