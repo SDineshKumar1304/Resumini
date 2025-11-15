@@ -4,10 +4,10 @@ import sys
 import time
 
 # Import your custom tools
-from tools.ats_score import ATSAnalyzer
-from tools.file_parser import extract_text
-from tools.linkedin_search import LinkedInSearch
-from tools.resume_optimizer import ResumeOptimizer
+from agent.tools.ats_score import ATSAnalyzer
+from agent.tools.file_parser import extract_text
+from agent.tools.linkedin_search import LinkedInSearch
+from agent.tools.resume_optimizer import ResumeOptimizer
 
 class GeminiLLM:
     def __init__(self):
